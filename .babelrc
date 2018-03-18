@@ -1,11 +1,23 @@
 {
   "presets": [
-    "env",
+    ["env", {
+      "targets":
+      {
+        "node": "current"
+      }
+    }],
     "stage-0",
     "react"
   ],
-  "plugins":[
+  "plugins": [
+    "loadable-components/babel",
     "react-hot-loader/babel",
-    "add-module-exports"
-  ]
+    "syntax-dynamic-import",
+    "lodash"
+  ],
+  "env": {
+    "production": {
+      "plugins": ["add-module-exports"]
+    }
+  }
 }

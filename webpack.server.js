@@ -3,11 +3,6 @@ const webpack       = require('webpack'),
   webpackConfig     = require('./webpack.config'),
   compiler          = webpack(webpackConfig),
   logger            = require('morgan')
-const Dashboard         = require('webpack-dashboard')
-const DashboardPlugin   = require('webpack-dashboard/plugin')
-
-// const mDashboard = new Dashboard()
-// compiler.apply(new DashboardPlugin(mDashboard.setData))
 
 new WebpackDevServer(compiler, {
   publicPath: webpackConfig.output.publicPath,

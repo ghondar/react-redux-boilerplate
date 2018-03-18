@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { hot } from 'react-hot-loader'
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
   render() {
     return (
       <h1>
@@ -10,3 +11,5 @@ export default class Dashboard extends Component {
     )
   }
 }
+
+export default hot(module)(Dashboard)

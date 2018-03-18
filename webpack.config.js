@@ -1,7 +1,10 @@
 const webpack       = require('webpack'),
   path              = require('path'),
   ExtractTextPlugin = require('extract-text-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin')
+  HtmlWebpackPlugin = require('html-webpack-plugin'),
+  BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
+  LodashModuleReplacementPlugin = require('lodash-webpack-plugin'),
+  DashboardPlugin = require('webpack-dashboard/plugin')
 
 module.exports = {
   mode   : 'development',
@@ -10,7 +13,6 @@ module.exports = {
   context: __dirname,
   entry  : [
     'babel-polyfill',
-    'react-hot-loader/patch',
     'webpack/hot/only-dev-server',
     'webpack-dev-server/client?http://localhost:3000',
     './src/App.jsx'
@@ -34,12 +36,20 @@ module.exports = {
       {
         test   : /\.jsx?$/,
         loader : 'babel-loader',
-        exclude: /(node_modules)/
+        exclude: /(node_modules)/,
+        query  : {
+          plugins: [ 'lodash' ],
+          presets: [ [ 'env', { modules: false, targets: { node: 4 } } ] ]
+        }
       },
       {
         test   : /\.js$/,
         loader : 'babel-loader',
-        include: path.join(__dirname, 'node_modules', 'redux-devtools', 'src')
+        include: path.join(__dirname, 'node_modules', 'redux-devtools', 'src'),
+        query  : {
+          plugins: [ 'lodash' ],
+          presets: [ [ 'env', { modules: false, targets: { node: 4 } } ] ]
+        }
       },
       {
         test: /\.styl/,
@@ -73,6 +83,8 @@ module.exports = {
     extensions: [ '.js', '.json', '.jsx' ]
   },
   plugins: [
+    // new DashboardPlugin(),
+    // new BundleAnalyzerPlugin(),
     new webpack.LoaderOptionsPlugin({
       debug: true
     }),
@@ -84,7 +96,8 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new webpack.HotModuleReplacementPlugin(), // This is necessary to emit hot updates (currently CSS only):
     new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new LodashModuleReplacementPlugin()
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

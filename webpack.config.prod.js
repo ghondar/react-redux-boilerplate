@@ -2,7 +2,8 @@ const webpack       = require('webpack'),
   path              = require('path'),
   ExtractTextPlugin = require('extract-text-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
-  UglifyJSPlugin    = require('uglifyjs-webpack-plugin')
+  UglifyJSPlugin    = require('uglifyjs-webpack-plugin'),
+  LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = {
   mode   : 'production',
@@ -22,12 +23,12 @@ module.exports = {
     rules: [
       {
         test   : /\.jsx?$/,
-        loader : [ 'babel-loader' ],
+        loader : 'babel-loader',
         exclude: /(node_modules)/
       },
       {
         test   : /\.js$/,
-        loaders: [ 'babel-loader' ],
+        loader : 'babel-loader',
         exclude: /(node_modules)/
       },
       {
@@ -145,6 +146,7 @@ module.exports = {
       disable  : false,
       allChunks: true
     }),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new LodashModuleReplacementPlugin()
   ]
 }
