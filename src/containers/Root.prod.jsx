@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/es/integration/react'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import Loading from '../components/Common/Loading'
 

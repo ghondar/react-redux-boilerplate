@@ -6,3 +6,5 @@ build
 yarn.lock
 .DS_Store
 .swp
+junit.xml
+coverage

@@ -1,2 +1,3 @@
-const type =  (process.env.NODE_ENV === 'production') ? 'prod' : 'dev'
-module.exports = require(`./configureStore.${type}`)
+module.exports = (process.env.NODE_ENV === 'production') ?
+  require('./configureStore.prod') :
+  require('./configureStore.dev')

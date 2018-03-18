@@ -4,11 +4,42 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "BABEL_ENV=production NODE_ENV=production node bin/www",
+    "start": "npm run build && BABEL_ENV=production node bin/www",
     "dev": "node webpack.server.js",
     "build": "webpack --config webpack.config.prod.js",
     "fix": "eslint . --ext .jsx --ext .js --fix",
-    "test": "eslint . --ext .jsx --ext .js"
+    "test": "eslint . --ext .jsx --ext .js && jest --coverage"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/.node/",
+      "/jest/"
+    ],
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./**/*.js",
+      "./**/*.jsx"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.jsx$": "babel-jest"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 0
+      }
+    },
+    "testResultsProcessor": "./node_modules/jest-junit"
   },
   "dependencies": {
     "express": "4.16.3",
@@ -35,23 +66,30 @@
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.2",
+    "babel-jest": "23.0.0-alpha.0",
     "babel-loader": "7.1.4",
     "babel-plugin-add-module-exports": "0.2.1",
-    "babel-plugin-dynamic-import-webpack": "1.0.2",
     "babel-plugin-lodash": "3.3.2",
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "css-loader": "0.28.11",
+    "enzyme": "3.3.0",
     "eslint": "4.19.0",
     "eslint-plugin-react": "7.7.0",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "html-webpack-plugin": "3.0.6",
+    "jest": "22.4.2",
+    "jest-junit": "3.6.0",
     "lodash-webpack-plugin": "0.11.4",
     "postcss-loader": "2.1.2",
+    "puppeteer": "1.2.0",
+    "react-addons-test-utils": "15.6.2",
     "react-error-overlay": "4.0.0",
     "react-hot-loader": "4.0.0",
+    "react-test-renderer": "16.2.0",
     "style-loader": "0.20.3",
     "stylus-loader": "3.0.2",
     "uglifyjs-webpack-plugin": "1.2.4",
@@ -61,14 +99,5 @@
     "webpack-dashboard": "1.1.1",
     "webpack-dev-server": "3.1.1",
     "webpack-hot-middleware": "2.21.2"
-  },
-  "babel": {
-    "env": {
-      "production": {
-        "plugins": [
-          "add-module-exports"
-        ]
-      }
-    }
   }
 }

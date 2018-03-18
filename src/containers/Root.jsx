@@ -1,2 +1,3 @@
-const type =  (process.env.NODE_ENV === 'production' || process.env.PROD) ? 'prod' : 'dev'
-module.exports = require(`./Root.${type}`)
+module.exports = (process.env.NODE_ENV === 'production' || process.env.PROD) ?
+  require('./Root.prod') :
+  require('./Root.dev')
